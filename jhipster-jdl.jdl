@@ -1,0 +1,113 @@
+
+entity Parent {
+    firstName String required,
+    lastName String required,
+    email String required pattern(/^[^@\s]+@[^@\s]+\.[^@\s]+$/),
+    phone String required
+}
+
+entity Child {
+	firstName String required,
+    lastName String required,
+    gender Gender required,
+    age Integer
+}
+
+entity Subject {
+	age AgeGrouping,
+    language Language required,
+    title String required,
+    //lesson Lesson,
+}
+enum Gender {
+    MALE, FEMALE
+}
+
+entity Lesson {
+	title String required,
+	language Language required,
+    level Level required,
+    //tile Tile required,
+    
+}
+
+entity Learning {
+	startDate Instant required,
+	endDate Instant,
+	language Language required,
+   // subject Subject required,
+   // child Child required
+}
+
+entity Tile {
+	status LockedStatus required,
+    //question Question,
+    image ImageBlob required,
+    audio Blob required,
+    languageTitle String required,
+    englishTitle String required
+    
+}
+
+entity Question {
+	description String required,
+	audio Blob required,
+	audioDescription String required,
+   // choices MultipleChoice required,
+}
+
+entity MultipleChoice {
+	status AnswerStatus required,
+    image ImageBlob required,
+}
+
+enum AnswerStatus {
+    CORRECT, WRONG
+}
+
+enum LockedStatus {
+    LOCKED, UNLOCKED
+}
+
+enum Language {
+    KIKUYU, ENGLISH, SWAHILI, KAMBA
+}
+
+enum Level {
+	BEGINNER, JUNIOR, SENIOR, ADVANCED
+}
+
+enum AgeGrouping {
+	OneToSix, JUNIOR, TEEN, SENIOR
+}
+
+relationship OneToOne {
+	Tile to Question,
+    Child to Learning
+   
+}
+
+// defining multiple OneToMany relationships with comments
+relationship OneToMany {
+	Learning to Subject,
+	Subject to Lesson,
+    Lesson to Tile,
+    //Tile to Question,
+    Question to MultipleChoice,
+    Parent to Child,
+    
+}
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+paginate Subject with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+
+// Set service options to all except few
+service all with serviceImpl except Parent, Child
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

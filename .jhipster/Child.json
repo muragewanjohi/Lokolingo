@@ -1,0 +1,50 @@
+{
+  "applications": "*",
+  "changelogDate": "20230923163439",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "child",
+  "fields": [
+    {
+      "fieldName": "firstName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "lastName",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "gender",
+      "fieldType": "Gender",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "MALE,FEMALE"
+    },
+    {
+      "fieldName": "age",
+      "fieldType": "Integer"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Child",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "learning",
+      "otherEntityRelationshipName": "child",
+      "ownerSide": true,
+      "relationshipName": "learning",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "parent",
+      "otherEntityRelationshipName": "child",
+      "relationshipName": "parent",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

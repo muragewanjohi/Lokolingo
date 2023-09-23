@@ -1,0 +1,46 @@
+{
+  "applications": "*",
+  "changelogDate": "20230923163441",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "lesson",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "language",
+      "fieldType": "Language",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "KIKUYU,ENGLISH,SWAHILI,KAMBA"
+    },
+    {
+      "fieldName": "level",
+      "fieldType": "Level",
+      "fieldValidateRules": ["required"],
+      "fieldValues": "BEGINNER,JUNIOR,SENIOR,ADVANCED"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Lesson",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "tile",
+      "otherEntityRelationshipName": "lesson",
+      "relationshipName": "tile",
+      "relationshipType": "one-to-many"
+    },
+    {
+      "otherEntityName": "subject",
+      "otherEntityRelationshipName": "lesson",
+      "relationshipName": "subject",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
