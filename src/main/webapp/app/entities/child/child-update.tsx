@@ -127,7 +127,7 @@ export const ChildUpdate = () => {
                 {learnings
                   ? learnings.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.language}
                       </option>
                     ))
                   : null}
@@ -137,7 +137,7 @@ export const ChildUpdate = () => {
                 {parents
                   ? parents.map(otherEntity => (
                       <option value={otherEntity.id} key={otherEntity.id}>
-                        {otherEntity.id}
+                        {otherEntity.firstName + ' ' + otherEntity.lastName}
                       </option>
                     ))
                   : null}

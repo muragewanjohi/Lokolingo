@@ -45,9 +45,9 @@ export const ChildDetail = () => {
           </dt>
           <dd>{childEntity.age}</dd>
           <dt>Learning</dt>
-          <dd>{childEntity.learning ? childEntity.learning.id : ''}</dd>
+          <dd>{childEntity.learning ? childEntity.learning.language : ''}</dd>
           <dt>Parent</dt>
-          <dd>{childEntity.parent ? childEntity.parent.id : ''}</dd>
+          <dd>{childEntity.parent ? childEntity.parent.firstName + ' ' + childEntity.parent.lastName: ''}</dd>
         </dl>
         <Button tag={Link} to="/child" replace color="info" data-cy="entityDetailsBackButton">
           <FontAwesomeIcon icon="arrow-left" /> <span className="d-none d-md-inline">Back</span>
