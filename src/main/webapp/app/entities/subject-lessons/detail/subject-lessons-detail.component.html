@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="subjectLessons">
+      <h2 data-cy="subjectLessonsDetailsHeading"><span>Subject Lessons</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ subjectLessons.id }}</span>
+        </dd>
+        <dt><span>Active</span></dt>
+        <dd>
+          <span>{{ subjectLessons.active }}</span>
+        </dd>
+        <dt><span>Created At</span></dt>
+        <dd>
+          <span>{{ subjectLessons.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Updated At</span></dt>
+        <dd>
+          <span>{{ subjectLessons.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Subject</span></dt>
+        <dd>
+          <div *ngIf="subjectLessons.subject">
+            <a [routerLink]="['/subject', subjectLessons.subject.id, 'view']">{{ subjectLessons.subject.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Lesson</span></dt>
+        <dd>
+          <div *ngIf="subjectLessons.lesson">
+            <a [routerLink]="['/lesson', subjectLessons.lesson.id, 'view']">{{ subjectLessons.lesson.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/subject-lessons', subjectLessons.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

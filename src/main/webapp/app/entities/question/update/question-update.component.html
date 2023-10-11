@@ -1,0 +1,99 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-question-heading" data-cy="QuestionCreateUpdateHeading">Create or edit a Question</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" *ngIf="editForm.controls.id.value !== null">
+          <label class="form-label" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+          <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('description')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_audio">Audio</label>
+          <div>
+            <div *ngIf="editForm.get('audio')!.value" class="form-text text-danger clearfix">
+              <a class="pull-start" (click)="openFile(editForm.get('audio')!.value!, editForm.get('audioContentType')!.value!)">Open</a
+              ><br />
+              <span class="pull-start">{{ editForm.get('audioContentType')!.value }}, {{ byteSize(editForm.get('audio')!.value!) }}</span>
+              <button
+                type="button"
+                (click)="editForm.patchValue({ audio: undefined, audioContentType: undefined })"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input type="file" id="file_audio" data-cy="audio" (change)="setFileData($event, 'audio', false)" />
+          </div>
+          <input type="hidden" class="form-control" name="audio" id="field_audio" data-cy="audio" formControlName="audio" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="audioContentType"
+            id="field_audioContentType"
+            formControlName="audioContentType"
+          />
+          <div *ngIf="editForm.get('audio')!.invalid && (editForm.get('audio')!.dirty || editForm.get('audio')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('audio')?.errors?.required"> This field is required. </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" for="field_audioDescription">Audio Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="audioDescription"
+            id="field_audioDescription"
+            data-cy="audioDescription"
+            formControlName="audioDescription"
+          />
+          <div
+            *ngIf="
+              editForm.get('audioDescription')!.invalid &&
+              (editForm.get('audioDescription')!.dirty || editForm.get('audioDescription')!.touched)
+            "
+          >
+            <small class="form-text text-danger" *ngIf="editForm.get('audioDescription')?.errors?.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

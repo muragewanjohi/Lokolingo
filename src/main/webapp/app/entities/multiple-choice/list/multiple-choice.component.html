@@ -1,0 +1,115 @@
+<div>
+  <h2 id="page-heading" data-cy="MultipleChoiceHeading">
+    <span>Multiple Choices</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-multiple-choice"
+        [routerLink]="['/multiple-choice/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span> Create a new Multiple Choice </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="multipleChoices?.length === 0">
+    <span>No Multiple Choices found</span>
+  </div>
+
+  <div class="table-responsive table-entities" id="entities" *ngIf="multipleChoices && multipleChoices.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" (sortChange)="navigateToWithComponentValues()">
+          <th scope="col" jhiSortBy="id">
+            <div class="d-flex">
+              <span>ID</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="status">
+            <div class="d-flex">
+              <span>Status</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="image">
+            <div class="d-flex">
+              <span>Image</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col" jhiSortBy="question.id">
+            <div class="d-flex">
+              <span>Question</span>
+              <fa-icon class="p-1" icon="sort"></fa-icon>
+            </div>
+          </th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let multipleChoice of multipleChoices; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/multiple-choice', multipleChoice.id, 'view']">{{ multipleChoice.id }}</a>
+          </td>
+          <td>{{ multipleChoice.status }}</td>
+          <td>
+            <a *ngIf="multipleChoice.image" (click)="openFile(multipleChoice.image, multipleChoice.imageContentType)">
+              <img
+                [src]="'data:' + multipleChoice.imageContentType + ';base64,' + multipleChoice.image"
+                style="max-height: 30px"
+                alt="multipleChoice image"
+              />
+            </a>
+            <span *ngIf="multipleChoice.image">{{ multipleChoice.imageContentType }}, {{ byteSize(multipleChoice.image) }}</span>
+          </td>
+          <td>
+            <div *ngIf="multipleChoice.question">
+              <a [routerLink]="['/question', multipleChoice.question.id, 'view']">{{ multipleChoice.question.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/multiple-choice', multipleChoice.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/multiple-choice', multipleChoice.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(multipleChoice)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

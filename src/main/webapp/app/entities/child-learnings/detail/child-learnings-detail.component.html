@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="childLearnings">
+      <h2 data-cy="childLearningsDetailsHeading"><span>Child Learnings</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ childLearnings.id }}</span>
+        </dd>
+        <dt><span>Active</span></dt>
+        <dd>
+          <span>{{ childLearnings.active }}</span>
+        </dd>
+        <dt><span>Created At</span></dt>
+        <dd>
+          <span>{{ childLearnings.createdAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Updated At</span></dt>
+        <dd>
+          <span>{{ childLearnings.updatedAt | formatMediumDatetime }}</span>
+        </dd>
+        <dt><span>Child</span></dt>
+        <dd>
+          <div *ngIf="childLearnings.child">
+            <a [routerLink]="['/child', childLearnings.child.id, 'view']">{{ childLearnings.child.id }}</a>
+          </div>
+        </dd>
+        <dt><span>Learning</span></dt>
+        <dd>
+          <div *ngIf="childLearnings.learning">
+            <a [routerLink]="['/learning', childLearnings.learning.id, 'view']">{{ childLearnings.learning.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/child-learnings', childLearnings.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

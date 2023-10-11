@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="tile">
+      <h2 data-cy="tileDetailsHeading"><span>Tile</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span>ID</span></dt>
+        <dd>
+          <span>{{ tile.id }}</span>
+        </dd>
+        <dt><span>Status</span></dt>
+        <dd>
+          <span>{{ tile.status }}</span>
+        </dd>
+        <dt><span>Image</span></dt>
+        <dd>
+          <div *ngIf="tile.image">
+            <a (click)="openFile(tile.image, tile.imageContentType)">
+              <img [src]="'data:' + tile.imageContentType + ';base64,' + tile.image" style="max-width: 100%" alt="tile image" />
+            </a>
+            {{ tile.imageContentType }}, {{ byteSize(tile.image) }}
+          </div>
+        </dd>
+        <dt><span>Audio</span></dt>
+        <dd>
+          <div *ngIf="tile.audio">
+            <a (click)="openFile(tile.audio, tile.audioContentType)">Open</a>
+            {{ tile.audioContentType }}, {{ byteSize(tile.audio) }}
+          </div>
+        </dd>
+        <dt><span>Language Title</span></dt>
+        <dd>
+          <span>{{ tile.languageTitle }}</span>
+        </dd>
+        <dt><span>English Title</span></dt>
+        <dd>
+          <span>{{ tile.englishTitle }}</span>
+        </dd>
+        <dt><span>Question</span></dt>
+        <dd>
+          <div *ngIf="tile.question">
+            <a [routerLink]="['/question', tile.question.id, 'view']">{{ tile.question.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/tile', tile.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

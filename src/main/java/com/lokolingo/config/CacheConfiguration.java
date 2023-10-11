@@ -48,6 +48,19 @@ public class CacheConfiguration {
             createCache(cm, com.lokolingo.domain.User.class.getName());
             createCache(cm, com.lokolingo.domain.Authority.class.getName());
             createCache(cm, com.lokolingo.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.lokolingo.domain.Parent.class.getName());
+            createCache(cm, com.lokolingo.domain.Parent.class.getName() + ".children");
+            createCache(cm, com.lokolingo.domain.Child.class.getName());
+            createCache(cm, com.lokolingo.domain.Subject.class.getName());
+            createCache(cm, com.lokolingo.domain.SubjectLessons.class.getName());
+            createCache(cm, com.lokolingo.domain.Lesson.class.getName());
+            createCache(cm, com.lokolingo.domain.Learning.class.getName());
+            createCache(cm, com.lokolingo.domain.ChildLearnings.class.getName());
+            createCache(cm, com.lokolingo.domain.Tile.class.getName());
+            createCache(cm, com.lokolingo.domain.LessonTiles.class.getName());
+            createCache(cm, com.lokolingo.domain.Question.class.getName());
+            createCache(cm, com.lokolingo.domain.Question.class.getName() + ".multipleChoices");
+            createCache(cm, com.lokolingo.domain.MultipleChoice.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

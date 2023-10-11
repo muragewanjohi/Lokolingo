@@ -1,0 +1,39 @@
+{
+  "applications": "*",
+  "changelogDate": "20231011201455",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "child_learnings",
+  "fields": [
+    {
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "Instant"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "Instant"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "ChildLearnings",
+  "pagination": "pagination",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "child",
+      "relationshipName": "child",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "learning",
+      "relationshipName": "learning",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "serviceImpl"
+}
