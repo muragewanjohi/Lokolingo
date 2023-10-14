@@ -22,6 +22,7 @@ type ParentFormGroupContent = {
   lastName: FormControl<IParent['lastName']>;
   email: FormControl<IParent['email']>;
   phone: FormControl<IParent['phone']>;
+  user: FormControl<IParent['user']>;
 };
 
 export type ParentFormGroup = FormGroup<ParentFormGroupContent>;
@@ -53,6 +54,7 @@ export class ParentFormService {
       phone: new FormControl(parentRawValue.phone, {
         validators: [Validators.required],
       }),
+      user: new FormControl(parentRawValue.user),
     });
   }
 

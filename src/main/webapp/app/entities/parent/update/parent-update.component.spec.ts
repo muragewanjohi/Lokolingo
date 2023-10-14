@@ -10,6 +10,9 @@ import { ParentFormService } from './parent-form.service';
 import { ParentService } from '../service/parent.service';
 import { IParent } from '../parent.model';
 
+import { IUser } from 'app/entities/user/user.model';
+import { UserService } from 'app/entities/user/user.service';
+
 import { ParentUpdateComponent } from './parent-update.component';
 
 describe('Parent Management Update Component', () => {
@@ -18,6 +21,7 @@ describe('Parent Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let parentFormService: ParentFormService;
   let parentService: ParentService;
+  let userService: UserService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +44,43 @@ describe('Parent Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     parentFormService = TestBed.inject(ParentFormService);
     parentService = TestBed.inject(ParentService);
+    userService = TestBed.inject(UserService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call User query and add missing value', () => {
       const parent: IParent = { id: 456 };
+      const user: IUser = { id: 53439 };
+      parent.user = user;
+
+      const userCollection: IUser[] = [{ id: 89168 }];
+      jest.spyOn(userService, 'query').mockReturnValue(of(new HttpResponse({ body: userCollection })));
+      const additionalUsers = [user];
+      const expectedCollection: IUser[] = [...additionalUsers, ...userCollection];
+      jest.spyOn(userService, 'addUserToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ parent });
       comp.ngOnInit();
 
+      expect(userService.query).toHaveBeenCalled();
+      expect(userService.addUserToCollectionIfMissing).toHaveBeenCalledWith(
+        userCollection,
+        ...additionalUsers.map(expect.objectContaining)
+      );
+      expect(comp.usersSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const parent: IParent = { id: 456 };
+      const user: IUser = { id: 19545 };
+      parent.user = user;
+
+      activatedRoute.data = of({ parent });
+      comp.ngOnInit();
+
+      expect(comp.usersSharedCollection).toContain(user);
       expect(comp.parent).toEqual(parent);
     });
   });
@@ -120,6 +150,18 @@ describe('Parent Management Update Component', () => {
       expect(parentService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareUser', () => {
+      it('Should forward to userService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(userService, 'compareUser');
+        comp.compareUser(entity, entity2);
+        expect(userService.compareUser).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

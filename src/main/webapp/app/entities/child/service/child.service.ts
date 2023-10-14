@@ -39,6 +39,11 @@ export class ChildService {
     return this.http.get<IChild[]>(this.resourceUrl, { params: options, observe: 'response' });
   }
 
+  queryByParent(parentUserLogin: string, req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http.get<IChild[]>(`${this.resourceUrl + '/parent'}/${parentUserLogin}`, { params: options, observe: 'response' });
+  }
+
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

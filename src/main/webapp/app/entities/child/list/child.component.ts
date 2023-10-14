@@ -8,6 +8,8 @@ import { ASC, DESC, SORT, ITEM_DELETED_EVENT, DEFAULT_SORT_DATA } from 'app/conf
 import { EntityArrayResponseType, ChildService } from '../service/child.service';
 import { ChildDeleteDialogComponent } from '../delete/child-delete-dialog.component';
 import { SortService } from 'app/shared/sort/sort.service';
+import { AccountService } from '../../../core/auth/account.service';
+import { Account } from '../../../core/auth/account.model';
 
 @Component({
   selector: 'jhi-child',
@@ -19,19 +21,41 @@ export class ChildComponent implements OnInit {
 
   predicate = 'id';
   ascending = true;
+  userId: number = 0;
+
+  adminUser: boolean = false;
+
+  authorities: any;
+  currentUser: any;
 
   constructor(
     protected childService: ChildService,
     protected activatedRoute: ActivatedRoute,
     public router: Router,
     protected sortService: SortService,
-    protected modalService: NgbModal
+    protected modalService: NgbModal,
+    private accountService: AccountService
   ) {}
 
   trackId = (_index: number, item: IChild): number => this.childService.getChildIdentifier(item);
 
   ngOnInit(): void {
-    this.load();
+    this.accountService.identity().subscribe((user: Account | null) => {
+      this.authorities = user?.authorities;
+      this.currentUser = user?.login;
+
+      this.authorities.forEach((element: string) => {
+        if (element == 'ROLE_ADMIN') {
+          this.adminUser = true;
+        }
+      });
+      //console.log('Account ' + user?.login);
+      console.log('adminUser ' + this.adminUser);
+
+      this.load();
+    });
+
+    //this.load();
   }
 
   delete(child: IChild): void {
@@ -93,7 +117,16 @@ export class ChildComponent implements OnInit {
     const queryObject = {
       sort: this.getSortQueryParam(predicate, ascending),
     };
-    return this.childService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+
+    //return this.childService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+
+    if (this.adminUser) {
+      console.log('Querying as admin');
+      return this.childService.query(queryObject).pipe(tap(() => (this.isLoading = false)));
+    } else {
+      console.log('Querying as normal user');
+      return this.childService.queryByParent(this.currentUser, queryObject).pipe(tap(() => (this.isLoading = false)));
+    }
   }
 
   protected handleNavigation(predicate?: string, ascending?: boolean): void {

@@ -63,7 +63,7 @@ public class ChildResource {
     /**
      * {@code PUT  /children/:id} : Updates an existing child.
      *
-     * @param id the id of the child to save.
+     * @param id    the id of the child to save.
      * @param child the child to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated child,
      * or with status {@code 400 (Bad Request)} if the child is not valid,
@@ -95,7 +95,7 @@ public class ChildResource {
     /**
      * {@code PATCH  /children/:id} : Partial updates given fields of an existing child, field will ignore if it is null
      *
-     * @param id the id of the child to save.
+     * @param id    the id of the child to save.
      * @param child the child to update.
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the updated child,
      * or with status {@code 400 (Bad Request)} if the child is not valid,
@@ -155,6 +155,17 @@ public class ChildResource {
     public List<Child> getAllChildren() {
         log.debug("REST request to get all Children");
         return childRepository.findAll();
+    }
+
+    /**
+     * {@code GET  /children} : get all the children.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of children in body.
+     */
+    @GetMapping("/children/parent/{parentUserLogin}")
+    public List<Child> getAllChildrenByParent(@PathVariable String parentUserLogin) {
+        log.debug("REST request to get all Children By Parent");
+        return childRepository.findAllByParentUserLogin(parentUserLogin);
     }
 
     /**

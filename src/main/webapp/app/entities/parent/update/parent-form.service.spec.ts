@@ -24,6 +24,7 @@ describe('Parent Form Service', () => {
             lastName: expect.any(Object),
             email: expect.any(Object),
             phone: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });
@@ -38,6 +39,7 @@ describe('Parent Form Service', () => {
             lastName: expect.any(Object),
             email: expect.any(Object),
             phone: expect.any(Object),
+            user: expect.any(Object),
           })
         );
       });

@@ -56,7 +56,7 @@ public class ParentResource {
         Parent result = parentRepository.save(parent);
         return ResponseEntity
             .created(new URI("/api/parents/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(applicationName, false, ENTITY_NAME, result.getId().toString()))
+            .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
     }
 
@@ -90,7 +90,7 @@ public class ParentResource {
         Parent result = parentRepository.save(parent);
         return ResponseEntity
             .ok()
-            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, parent.getId().toString()))
+            .headers(HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, parent.getId().toString()))
             .body(result);
     }
 
@@ -144,19 +144,24 @@ public class ParentResource {
 
         return ResponseUtil.wrapOrNotFound(
             result,
-            HeaderUtil.createEntityUpdateAlert(applicationName, false, ENTITY_NAME, parent.getId().toString())
+            HeaderUtil.createEntityUpdateAlert(applicationName, true, ENTITY_NAME, parent.getId().toString())
         );
     }
 
     /**
      * {@code GET  /parents} : get all the parents.
      *
+     * @param eagerload flag to eager load entities from relationships (This is applicable for many-to-many).
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of parents in body.
      */
     @GetMapping("/parents")
-    public List<Parent> getAllParents() {
+    public List<Parent> getAllParents(@RequestParam(required = false, defaultValue = "false") boolean eagerload) {
         log.debug("REST request to get all Parents");
-        return parentRepository.findAll();
+        if (eagerload) {
+            return parentRepository.findAllWithEagerRelationships();
+        } else {
+            return parentRepository.findAll();
+        }
     }
 
     /**
@@ -168,7 +173,7 @@ public class ParentResource {
     @GetMapping("/parents/{id}")
     public ResponseEntity<Parent> getParent(@PathVariable Long id) {
         log.debug("REST request to get Parent : {}", id);
-        Optional<Parent> parent = parentRepository.findById(id);
+        Optional<Parent> parent = parentRepository.findOneWithEagerRelationships(id);
         return ResponseUtil.wrapOrNotFound(parent);
     }
 
@@ -184,7 +189,7 @@ public class ParentResource {
         parentRepository.deleteById(id);
         return ResponseEntity
             .noContent()
-            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, false, ENTITY_NAME, id.toString()))
+            .headers(HeaderUtil.createEntityDeletionAlert(applicationName, true, ENTITY_NAME, id.toString()))
             .build();
     }
 }

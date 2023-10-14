@@ -38,6 +38,16 @@
       "otherEntityRelationshipName": "parent",
       "relationshipName": "child",
       "relationshipType": "one-to-many"
+    },
+    {
+      "id": true,
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "parent",
+      "ownerSide": true,
+      "relationshipName": "user",
+      "relationshipType": "one-to-one",
+      "relationshipValidateRules": []
     }
   ],
   "service": "no"
