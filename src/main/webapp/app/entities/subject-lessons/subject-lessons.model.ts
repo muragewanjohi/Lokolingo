@@ -7,8 +7,8 @@ export interface ISubjectLessons {
   active?: boolean | null;
   createdAt?: dayjs.Dayjs | null;
   updatedAt?: dayjs.Dayjs | null;
-  subject?: Pick<ISubject, 'id'> | null;
-  lesson?: Pick<ILesson, 'id'> | null;
+  subject?: Pick<ISubject, 'id' | 'title'> | null;
+  lesson?: Pick<ILesson, 'id' | 'title'> | null;
 }
 
 export type NewSubjectLessons = Omit<ISubjectLessons, 'id'> & { id: null };

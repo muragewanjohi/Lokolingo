@@ -82,7 +82,7 @@
           <td>{{ child.age }}</td>
           <td>
             <div *ngIf="child.parent">
-              <a [routerLink]="['/parent', child.parent.id, 'view']">{{ child.parent.id }}</a>
+              <a [routerLink]="['/parent', child.parent.id, 'view']">{{ child.parent.firstName + ' ' + child.parent.lastName }}</a>
             </div>
           </td>
           <td class="text-end">

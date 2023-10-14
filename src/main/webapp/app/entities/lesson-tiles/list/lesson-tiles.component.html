@@ -81,12 +81,12 @@
           <td>{{ lessonTiles.updatedAt | formatMediumDatetime }}</td>
           <td>
             <div *ngIf="lessonTiles.lesson">
-              <a [routerLink]="['/lesson', lessonTiles.lesson.id, 'view']">{{ lessonTiles.lesson.id }}</a>
+              <a [routerLink]="['/lesson', lessonTiles.lesson.id, 'view']">{{ lessonTiles.lesson.title }}</a>
             </div>
           </td>
           <td>
             <div *ngIf="lessonTiles.tile">
-              <a [routerLink]="['/tile', lessonTiles.tile.id, 'view']">{{ lessonTiles.tile.id }}</a>
+              <a [routerLink]="['/tile', lessonTiles.tile.id, 'view']">{{ lessonTiles.tile.englishTitle }}</a>
             </div>
           </td>
           <td class="text-end">

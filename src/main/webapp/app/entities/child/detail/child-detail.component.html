@@ -33,7 +33,7 @@
         <dt><span>Parent</span></dt>
         <dd>
           <div *ngIf="child.parent">
-            <a [routerLink]="['/parent', child.parent.id, 'view']">{{ child.parent.id }}</a>
+            <a [routerLink]="['/parent', child.parent.id, 'view']">{{ child.parent.firstName + ' ' + child.parent.lastName }}</a>
           </div>
         </dd>
       </dl>

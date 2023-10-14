@@ -6,7 +6,7 @@ export interface IMultipleChoice {
   status?: AnswerStatus | null;
   image?: string | null;
   imageContentType?: string | null;
-  question?: Pick<IQuestion, 'id'> | null;
+  question?: Pick<IQuestion, 'id' | 'description'> | null;
 }
 
 export type NewMultipleChoice = Omit<IMultipleChoice, 'id'> & { id: null };

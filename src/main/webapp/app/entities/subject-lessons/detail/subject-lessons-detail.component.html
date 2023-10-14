@@ -29,13 +29,13 @@
         <dt><span>Subject</span></dt>
         <dd>
           <div *ngIf="subjectLessons.subject">
-            <a [routerLink]="['/subject', subjectLessons.subject.id, 'view']">{{ subjectLessons.subject.id }}</a>
+            <a [routerLink]="['/subject', subjectLessons.subject.id, 'view']">{{ subjectLessons.subject.title }}</a>
           </div>
         </dd>
         <dt><span>Lesson</span></dt>
         <dd>
           <div *ngIf="subjectLessons.lesson">
-            <a [routerLink]="['/lesson', subjectLessons.lesson.id, 'view']">{{ subjectLessons.lesson.id }}</a>
+            <a [routerLink]="['/lesson', subjectLessons.lesson.id, 'view']">{{ subjectLessons.lesson.title }}</a>
           </div>
         </dd>
       </dl>

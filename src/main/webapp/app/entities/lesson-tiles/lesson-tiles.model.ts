@@ -7,8 +7,8 @@ export interface ILessonTiles {
   active?: boolean | null;
   createdAt?: dayjs.Dayjs | null;
   updatedAt?: dayjs.Dayjs | null;
-  lesson?: Pick<ILesson, 'id'> | null;
-  tile?: Pick<ITile, 'id'> | null;
+  lesson?: Pick<ILesson, 'id' | 'title'> | null;
+  tile?: Pick<ITile, 'id' | 'languageTitle' | 'englishTitle'> | null;
 }
 
 export type NewLessonTiles = Omit<ILessonTiles, 'id'> & { id: null };

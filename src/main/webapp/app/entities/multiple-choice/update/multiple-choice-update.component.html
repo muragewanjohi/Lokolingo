@@ -67,7 +67,9 @@
             [compareWith]="compareQuestion"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="questionOption" *ngFor="let questionOption of questionsSharedCollection">{{ questionOption.id }}</option>
+            <option [ngValue]="questionOption" *ngFor="let questionOption of questionsSharedCollection">
+              {{ questionOption.description }}
+            </option>
           </select>
         </div>
       </div>

@@ -10,7 +10,7 @@ export interface ITile {
   audioContentType?: string | null;
   languageTitle?: string | null;
   englishTitle?: string | null;
-  question?: Pick<IQuestion, 'id'> | null;
+  question?: Pick<IQuestion, 'id' | 'description'> | null;
 }
 
 export type NewTile = Omit<ITile, 'id'> & { id: null };

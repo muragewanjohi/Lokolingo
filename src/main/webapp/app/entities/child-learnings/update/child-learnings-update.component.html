@@ -50,7 +50,9 @@
           <label class="form-label" for="field_child">Child</label>
           <select class="form-control" id="field_child" data-cy="child" name="child" formControlName="child" [compareWith]="compareChild">
             <option [ngValue]="null"></option>
-            <option [ngValue]="childOption" *ngFor="let childOption of childrenSharedCollection">{{ childOption.id }}</option>
+            <option [ngValue]="childOption" *ngFor="let childOption of childrenSharedCollection">
+              {{ childOption.firstName + ' ' + childOption.lastName }}
+            </option>
           </select>
         </div>
 
@@ -65,7 +67,15 @@
             [compareWith]="compareLearning"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="learningOption" *ngFor="let learningOption of learningsSharedCollection">{{ learningOption.id }}</option>
+            <option [ngValue]="learningOption" *ngFor="let learningOption of learningsSharedCollection">
+              {{
+                learningOption.language +
+                  ' Begining ' +
+                  (learningOption.startDate | formatMediumDate) +
+                  ' Ending ' +
+                  (learningOption.endDate | formatMediumDate)
+              }}
+            </option>
           </select>
         </div>
       </div>

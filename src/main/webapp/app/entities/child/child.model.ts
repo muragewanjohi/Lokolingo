@@ -7,7 +7,7 @@ export interface IChild {
   lastName?: string | null;
   gender?: Gender | null;
   age?: number | null;
-  parent?: Pick<IParent, 'id'> | null;
+  parent?: Pick<IParent, 'id' | 'firstName' | 'lastName'> | null;
 }
 
 export type NewChild = Omit<IChild, 'id'> & { id: null };

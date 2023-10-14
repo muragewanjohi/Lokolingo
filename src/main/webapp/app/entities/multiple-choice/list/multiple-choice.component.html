@@ -77,7 +77,7 @@
           </td>
           <td>
             <div *ngIf="multipleChoice.question">
-              <a [routerLink]="['/question', multipleChoice.question.id, 'view']">{{ multipleChoice.question.id }}</a>
+              <a [routerLink]="['/question', multipleChoice.question.id, 'view']">{{ multipleChoice.question.description }}</a>
             </div>
           </td>
           <td class="text-end">

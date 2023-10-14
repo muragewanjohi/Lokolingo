@@ -57,7 +57,7 @@
             [compareWith]="compareSubject"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="subjectOption" *ngFor="let subjectOption of subjectsSharedCollection">{{ subjectOption.id }}</option>
+            <option [ngValue]="subjectOption" *ngFor="let subjectOption of subjectsSharedCollection">{{ subjectOption.title }}</option>
           </select>
         </div>
 
@@ -72,7 +72,7 @@
             [compareWith]="compareLesson"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="lessonOption" *ngFor="let lessonOption of lessonsSharedCollection">{{ lessonOption.id }}</option>
+            <option [ngValue]="lessonOption" *ngFor="let lessonOption of lessonsSharedCollection">{{ lessonOption.title }}</option>
           </select>
         </div>
       </div>

@@ -29,13 +29,13 @@
         <dt><span>Lesson</span></dt>
         <dd>
           <div *ngIf="lessonTiles.lesson">
-            <a [routerLink]="['/lesson', lessonTiles.lesson.id, 'view']">{{ lessonTiles.lesson.id }}</a>
+            <a [routerLink]="['/lesson', lessonTiles.lesson.id, 'view']">{{ lessonTiles.lesson.title }}</a>
           </div>
         </dd>
         <dt><span>Tile</span></dt>
         <dd>
           <div *ngIf="lessonTiles.tile">
-            <a [routerLink]="['/tile', lessonTiles.tile.id, 'view']">{{ lessonTiles.tile.id }}</a>
+            <a [routerLink]="['/tile', lessonTiles.tile.id, 'view']">{{ lessonTiles.tile.englishTitle }}</a>
           </div>
         </dd>
       </dl>

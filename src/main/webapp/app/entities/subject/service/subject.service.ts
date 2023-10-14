@@ -7,7 +7,7 @@ import { ApplicationConfigService } from 'app/core/config/application-config.ser
 import { createRequestOption } from 'app/core/request/request-util';
 import { ISubject, NewSubject } from '../subject.model';
 
-export type PartialUpdateSubject = Partial<ISubject> & Pick<ISubject, 'id'>;
+export type PartialUpdateSubject = Partial<ISubject> & Pick<ISubject, 'id' | 'title'>;
 
 export type EntityResponseType = HttpResponse<ISubject>;
 export type EntityArrayResponseType = HttpResponse<ISubject[]>;

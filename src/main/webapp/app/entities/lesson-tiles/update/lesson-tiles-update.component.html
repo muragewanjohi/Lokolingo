@@ -57,7 +57,7 @@
             [compareWith]="compareLesson"
           >
             <option [ngValue]="null"></option>
-            <option [ngValue]="lessonOption" *ngFor="let lessonOption of lessonsSharedCollection">{{ lessonOption.id }}</option>
+            <option [ngValue]="lessonOption" *ngFor="let lessonOption of lessonsSharedCollection">{{ lessonOption.title }}</option>
           </select>
         </div>
 
@@ -65,7 +65,7 @@
           <label class="form-label" for="field_tile">Tile</label>
           <select class="form-control" id="field_tile" data-cy="tile" name="tile" formControlName="tile" [compareWith]="compareTile">
             <option [ngValue]="null"></option>
-            <option [ngValue]="tileOption" *ngFor="let tileOption of tilesSharedCollection">{{ tileOption.id }}</option>
+            <option [ngValue]="tileOption" *ngFor="let tileOption of tilesSharedCollection">{{ tileOption.englishTitle }}</option>
           </select>
         </div>
       </div>

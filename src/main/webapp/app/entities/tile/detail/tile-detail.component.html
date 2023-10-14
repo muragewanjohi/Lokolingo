@@ -45,7 +45,7 @@
         <dt><span>Question</span></dt>
         <dd>
           <div *ngIf="tile.question">
-            <a [routerLink]="['/question', tile.question.id, 'view']">{{ tile.question.id }}</a>
+            <a [routerLink]="['/question', tile.question.id, 'view']">{{ tile.question.description }}</a>
           </div>
         </dd>
       </dl>

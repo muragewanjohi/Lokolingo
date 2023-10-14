@@ -11,10 +11,12 @@ import { IChild } from 'app/entities/child/child.model';
 import { ChildService } from 'app/entities/child/service/child.service';
 import { ILearning } from 'app/entities/learning/learning.model';
 import { LearningService } from 'app/entities/learning/service/learning.service';
+import { FormatMediumDatePipe } from '../../../shared/date/format-medium-date.pipe';
 
 @Component({
   selector: 'jhi-child-learnings-update',
   templateUrl: './child-learnings-update.component.html',
+  providers: [FormatMediumDatePipe],
 })
 export class ChildLearningsUpdateComponent implements OnInit {
   isSaving = false;

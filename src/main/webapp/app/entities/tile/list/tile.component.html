@@ -97,7 +97,7 @@
           <td>{{ tile.englishTitle }}</td>
           <td>
             <div *ngIf="tile.question">
-              <a [routerLink]="['/question', tile.question.id, 'view']">{{ tile.question.id }}</a>
+              <a [routerLink]="['/question', tile.question.id, 'view']">{{ tile.question.description }}</a>
             </div>
           </td>
           <td class="text-end">

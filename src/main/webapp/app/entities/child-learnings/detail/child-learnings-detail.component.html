@@ -29,13 +29,15 @@
         <dt><span>Child</span></dt>
         <dd>
           <div *ngIf="childLearnings.child">
-            <a [routerLink]="['/child', childLearnings.child.id, 'view']">{{ childLearnings.child.id }}</a>
+            <a [routerLink]="['/child', childLearnings.child.id, 'view']">{{
+              childLearnings.child.firstName + ' ' + childLearnings.child.lastName
+            }}</a>
           </div>
         </dd>
         <dt><span>Learning</span></dt>
         <dd>
           <div *ngIf="childLearnings.learning">
-            <a [routerLink]="['/learning', childLearnings.learning.id, 'view']">{{ childLearnings.learning.id }}</a>
+            <a [routerLink]="['/learning', childLearnings.learning.id, 'view']">{{ childLearnings.learning.language }}</a>
           </div>
         </dd>
       </dl>
