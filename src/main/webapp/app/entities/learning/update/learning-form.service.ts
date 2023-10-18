@@ -34,7 +34,7 @@ type LearningFormGroupContent = {
   id: FormControl<LearningFormRawValue['id'] | NewLearning['id']>;
   startDate: FormControl<LearningFormRawValue['startDate']>;
   endDate: FormControl<LearningFormRawValue['endDate']>;
-  language: FormControl<LearningFormRawValue['language']>;
+  lesson: FormControl<LearningFormRawValue['lesson']>;
 };
 
 export type LearningFormGroup = FormGroup<LearningFormGroupContent>;
@@ -58,9 +58,7 @@ export class LearningFormService {
         validators: [Validators.required],
       }),
       endDate: new FormControl(learningRawValue.endDate),
-      language: new FormControl(learningRawValue.language, {
-        validators: [Validators.required],
-      }),
+      lesson: new FormControl(learningRawValue.lesson),
     });
   }
 

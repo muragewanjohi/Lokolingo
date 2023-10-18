@@ -8,7 +8,7 @@ export interface IChildLearnings {
   createdAt?: dayjs.Dayjs | null;
   updatedAt?: dayjs.Dayjs | null;
   child?: Pick<IChild, 'id' | 'firstName' | 'lastName'> | null;
-  learning?: Pick<ILearning, 'id' | 'language' | 'startDate' | 'endDate'> | null;
+  learning?: Pick<ILearning, 'id' | 'lesson' | 'startDate' | 'endDate'> | null;
 }
 
 export type NewChildLearnings = Omit<IChildLearnings, 'id'> & { id: null };

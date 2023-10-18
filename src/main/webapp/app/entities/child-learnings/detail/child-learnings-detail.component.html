@@ -37,7 +37,7 @@
         <dt><span>Learning</span></dt>
         <dd>
           <div *ngIf="childLearnings.learning">
-            <a [routerLink]="['/learning', childLearnings.learning.id, 'view']">{{ childLearnings.learning.language }}</a>
+            <a [routerLink]="['/learning', childLearnings.learning.id, 'view']">{{ childLearnings.learning.lesson }}</a>
           </div>
         </dd>
       </dl>

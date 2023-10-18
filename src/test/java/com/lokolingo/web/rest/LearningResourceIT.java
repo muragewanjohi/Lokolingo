@@ -7,7 +7,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.lokolingo.IntegrationTest;
 import com.lokolingo.domain.Learning;
-import com.lokolingo.domain.enumeration.Language;
 import com.lokolingo.repository.LearningRepository;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -38,9 +37,6 @@ class LearningResourceIT {
     private static final Instant DEFAULT_END_DATE = Instant.ofEpochMilli(0L);
     private static final Instant UPDATED_END_DATE = Instant.now().truncatedTo(ChronoUnit.MILLIS);
 
-    private static final Language DEFAULT_LANGUAGE = Language.KIKUYU;
-    private static final Language UPDATED_LANGUAGE = Language.ENGLISH;
-
     private static final String ENTITY_API_URL = "/api/learnings";
     private static final String ENTITY_API_URL_ID = ENTITY_API_URL + "/{id}";
 
@@ -65,7 +61,7 @@ class LearningResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Learning createEntity(EntityManager em) {
-        Learning learning = new Learning().startDate(DEFAULT_START_DATE).endDate(DEFAULT_END_DATE).language(DEFAULT_LANGUAGE);
+        Learning learning = new Learning().startDate(DEFAULT_START_DATE).endDate(DEFAULT_END_DATE);
         return learning;
     }
 
@@ -76,7 +72,7 @@ class LearningResourceIT {
      * if they test an entity which requires the current entity.
      */
     public static Learning createUpdatedEntity(EntityManager em) {
-        Learning learning = new Learning().startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE).language(UPDATED_LANGUAGE);
+        Learning learning = new Learning().startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE);
         return learning;
     }
 
@@ -100,7 +96,6 @@ class LearningResourceIT {
         Learning testLearning = learningList.get(learningList.size() - 1);
         assertThat(testLearning.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testLearning.getEndDate()).isEqualTo(DEFAULT_END_DATE);
-        assertThat(testLearning.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
     }
 
     @Test
@@ -140,23 +135,6 @@ class LearningResourceIT {
 
     @Test
     @Transactional
-    void checkLanguageIsRequired() throws Exception {
-        int databaseSizeBeforeTest = learningRepository.findAll().size();
-        // set the field null
-        learning.setLanguage(null);
-
-        // Create the Learning, which fails.
-
-        restLearningMockMvc
-            .perform(post(ENTITY_API_URL).contentType(MediaType.APPLICATION_JSON).content(TestUtil.convertObjectToJsonBytes(learning)))
-            .andExpect(status().isBadRequest());
-
-        List<Learning> learningList = learningRepository.findAll();
-        assertThat(learningList).hasSize(databaseSizeBeforeTest);
-    }
-
-    @Test
-    @Transactional
     void getAllLearnings() throws Exception {
         // Initialize the database
         learningRepository.saveAndFlush(learning);
@@ -168,8 +146,7 @@ class LearningResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(learning.getId().intValue())))
             .andExpect(jsonPath("$.[*].startDate").value(hasItem(DEFAULT_START_DATE.toString())))
-            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())))
-            .andExpect(jsonPath("$.[*].language").value(hasItem(DEFAULT_LANGUAGE.toString())));
+            .andExpect(jsonPath("$.[*].endDate").value(hasItem(DEFAULT_END_DATE.toString())));
     }
 
     @Test
@@ -185,8 +162,7 @@ class LearningResourceIT {
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(learning.getId().intValue()))
             .andExpect(jsonPath("$.startDate").value(DEFAULT_START_DATE.toString()))
-            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()))
-            .andExpect(jsonPath("$.language").value(DEFAULT_LANGUAGE.toString()));
+            .andExpect(jsonPath("$.endDate").value(DEFAULT_END_DATE.toString()));
     }
 
     @Test
@@ -208,7 +184,7 @@ class LearningResourceIT {
         Learning updatedLearning = learningRepository.findById(learning.getId()).get();
         // Disconnect from session so that the updates on updatedLearning are not directly saved in db
         em.detach(updatedLearning);
-        updatedLearning.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE).language(UPDATED_LANGUAGE);
+        updatedLearning.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE);
 
         restLearningMockMvc
             .perform(
@@ -224,7 +200,6 @@ class LearningResourceIT {
         Learning testLearning = learningList.get(learningList.size() - 1);
         assertThat(testLearning.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testLearning.getEndDate()).isEqualTo(UPDATED_END_DATE);
-        assertThat(testLearning.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
     }
 
     @Test
@@ -311,7 +286,6 @@ class LearningResourceIT {
         Learning testLearning = learningList.get(learningList.size() - 1);
         assertThat(testLearning.getStartDate()).isEqualTo(DEFAULT_START_DATE);
         assertThat(testLearning.getEndDate()).isEqualTo(UPDATED_END_DATE);
-        assertThat(testLearning.getLanguage()).isEqualTo(DEFAULT_LANGUAGE);
     }
 
     @Test
@@ -326,7 +300,7 @@ class LearningResourceIT {
         Learning partialUpdatedLearning = new Learning();
         partialUpdatedLearning.setId(learning.getId());
 
-        partialUpdatedLearning.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE).language(UPDATED_LANGUAGE);
+        partialUpdatedLearning.startDate(UPDATED_START_DATE).endDate(UPDATED_END_DATE);
 
         restLearningMockMvc
             .perform(
@@ -342,7 +316,6 @@ class LearningResourceIT {
         Learning testLearning = learningList.get(learningList.size() - 1);
         assertThat(testLearning.getStartDate()).isEqualTo(UPDATED_START_DATE);
         assertThat(testLearning.getEndDate()).isEqualTo(UPDATED_END_DATE);
-        assertThat(testLearning.getLanguage()).isEqualTo(UPDATED_LANGUAGE);
     }
 
     @Test

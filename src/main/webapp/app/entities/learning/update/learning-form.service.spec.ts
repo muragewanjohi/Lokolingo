@@ -22,7 +22,7 @@ describe('Learning Form Service', () => {
             id: expect.any(Object),
             startDate: expect.any(Object),
             endDate: expect.any(Object),
-            language: expect.any(Object),
+            lesson: expect.any(Object),
           })
         );
       });
@@ -35,7 +35,7 @@ describe('Learning Form Service', () => {
             id: expect.any(Object),
             startDate: expect.any(Object),
             endDate: expect.any(Object),
-            language: expect.any(Object),
+            lesson: expect.any(Object),
           })
         );
       });

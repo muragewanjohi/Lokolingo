@@ -48,14 +48,18 @@
         </div>
 
         <div class="row mb-3">
-          <label class="form-label" for="field_language">Language</label>
-          <select class="form-control" name="language" formControlName="language" id="field_language" data-cy="language">
+          <label class="form-label" for="field_lesson">Lesson</label>
+          <select
+            class="form-control"
+            id="field_lesson"
+            data-cy="lesson"
+            name="lesson"
+            formControlName="lesson"
+            [compareWith]="compareLesson"
+          >
             <option [ngValue]="null"></option>
-            <option *ngFor="let language of languageValues" [value]="language">language</option>
+            <option [ngValue]="lessonOption" *ngFor="let lessonOption of lessonsSharedCollection">{{ lessonOption.title }}</option>
           </select>
-          <div *ngIf="editForm.get('language')!.invalid && (editForm.get('language')!.dirty || editForm.get('language')!.touched)">
-            <small class="form-text text-danger" *ngIf="editForm.get('language')?.errors?.required"> This field is required. </small>
-          </div>
         </div>
       </div>
 

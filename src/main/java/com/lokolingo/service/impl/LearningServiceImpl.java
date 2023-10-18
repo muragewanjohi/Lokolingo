@@ -50,9 +50,6 @@ public class LearningServiceImpl implements LearningService {
                 if (learning.getEndDate() != null) {
                     existingLearning.setEndDate(learning.getEndDate());
                 }
-                if (learning.getLanguage() != null) {
-                    existingLearning.setLanguage(learning.getLanguage());
-                }
 
                 return existingLearning;
             })

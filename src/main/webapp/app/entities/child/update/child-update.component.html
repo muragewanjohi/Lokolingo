@@ -31,7 +31,7 @@
           <label class="form-label" for="field_gender">Gender</label>
           <select class="form-control" name="gender" formControlName="gender" id="field_gender" data-cy="gender">
             <option [ngValue]="null"></option>
-            <option *ngFor="let gender of genderValues" [value]="gender">gender</option>
+            <option *ngFor="let gender of genderValues" [value]="gender">{{ gender }}</option>
           </select>
           <div *ngIf="editForm.get('gender')!.invalid && (editForm.get('gender')!.dirty || editForm.get('gender')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('gender')?.errors?.required"> This field is required. </small>

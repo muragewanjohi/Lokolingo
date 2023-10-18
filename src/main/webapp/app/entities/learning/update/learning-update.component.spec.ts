@@ -9,6 +9,8 @@ import { of, Subject, from } from 'rxjs';
 import { LearningFormService } from './learning-form.service';
 import { LearningService } from '../service/learning.service';
 import { ILearning } from '../learning.model';
+import { ILesson } from 'app/entities/lesson/lesson.model';
+import { LessonService } from 'app/entities/lesson/service/lesson.service';
 
 import { LearningUpdateComponent } from './learning-update.component';
 
@@ -18,6 +20,7 @@ describe('Learning Management Update Component', () => {
   let activatedRoute: ActivatedRoute;
   let learningFormService: LearningFormService;
   let learningService: LearningService;
+  let lessonService: LessonService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -40,17 +43,43 @@ describe('Learning Management Update Component', () => {
     activatedRoute = TestBed.inject(ActivatedRoute);
     learningFormService = TestBed.inject(LearningFormService);
     learningService = TestBed.inject(LearningService);
+    lessonService = TestBed.inject(LessonService);
 
     comp = fixture.componentInstance;
   });
 
   describe('ngOnInit', () => {
-    it('Should update editForm', () => {
+    it('Should call Lesson query and add missing value', () => {
       const learning: ILearning = { id: 456 };
+      const lesson: ILesson = { id: 41644 };
+      learning.lesson = lesson;
+
+      const lessonCollection: ILesson[] = [{ id: 64943 }];
+      jest.spyOn(lessonService, 'query').mockReturnValue(of(new HttpResponse({ body: lessonCollection })));
+      const additionalLessons = [lesson];
+      const expectedCollection: ILesson[] = [...additionalLessons, ...lessonCollection];
+      jest.spyOn(lessonService, 'addLessonToCollectionIfMissing').mockReturnValue(expectedCollection);
 
       activatedRoute.data = of({ learning });
       comp.ngOnInit();
 
+      expect(lessonService.query).toHaveBeenCalled();
+      expect(lessonService.addLessonToCollectionIfMissing).toHaveBeenCalledWith(
+        lessonCollection,
+        ...additionalLessons.map(expect.objectContaining)
+      );
+      expect(comp.lessonsSharedCollection).toEqual(expectedCollection);
+    });
+
+    it('Should update editForm', () => {
+      const learning: ILearning = { id: 456 };
+      const lesson: ILesson = { id: 56469 };
+      learning.lesson = lesson;
+
+      activatedRoute.data = of({ learning });
+      comp.ngOnInit();
+
+      expect(comp.lessonsSharedCollection).toContain(lesson);
       expect(comp.learning).toEqual(learning);
     });
   });
@@ -120,6 +149,18 @@ describe('Learning Management Update Component', () => {
       expect(learningService.update).toHaveBeenCalled();
       expect(comp.isSaving).toEqual(false);
       expect(comp.previousState).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('Compare relationships', () => {
+    describe('compareLesson', () => {
+      it('Should forward to lessonService', () => {
+        const entity = { id: 123 };
+        const entity2 = { id: 456 };
+        jest.spyOn(lessonService, 'compareLesson');
+        comp.compareLesson(entity, entity2);
+        expect(lessonService.compareLesson).toHaveBeenCalledWith(entity, entity2);
+      });
     });
   });
 });

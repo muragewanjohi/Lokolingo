@@ -22,9 +22,11 @@
         <dd>
           <span>{{ learning.endDate | formatMediumDatetime }}</span>
         </dd>
-        <dt><span>Language</span></dt>
+        <dt><span>Lesson</span></dt>
         <dd>
-          <span>{{ learning.language }}</span>
+          <div *ngIf="learning.lesson">
+            <a [routerLink]="['/lesson', learning.lesson.id, 'view']">{{ learning.lesson.title }}</a>
+          </div>
         </dd>
       </dl>
 

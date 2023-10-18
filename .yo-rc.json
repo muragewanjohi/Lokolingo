@@ -39,7 +39,7 @@
     "gaeMaxInstances": "5",
     "gaeMinInstances": "3",
     "gaeScalingType": "automatic",
-    "gaeServiceName": "default",
+    "gaeServiceName": "lokolingo",
     "gcpCloudSqlDatabaseName": "Lokolingo",
     "gcpCloudSqlInstanceName": "empyrean-caster-402217:us-central1:lokolingo",
     "gcpCloudSqlUserName": "root",
@@ -66,7 +66,7 @@
     "skipCheckLengthOfIdentifier": false,
     "skipClient": false,
     "skipFakeData": false,
-    "skipUserManagement": true,
+    "skipUserManagement": false,
     "testFrameworks": [],
     "websocket": false,
     "withAdminUi": true

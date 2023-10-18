@@ -29,6 +29,12 @@
         <dropDefaultValue tableName="learning" columnName="end_date" columnDataType="${datetimeType}"/>
     </changeSet>
 
+    <changeSet id="20231018224635" author="jhipster">
+
+        <dropColumn columnName="language"
+                    tableName="learning"/>
+
+    </changeSet>
     <!-- jhipster-needle-liquibase-add-changeset - JHipster will add changesets here -->
 
     <!--

@@ -13,12 +13,6 @@
     {
       "fieldName": "endDate",
       "fieldType": "Instant"
-    },
-    {
-      "fieldName": "language",
-      "fieldType": "Language",
-      "fieldValidateRules": ["required"],
-      "fieldValues": "KIKUYU,ENGLISH,SWAHILI,KAMBA"
     }
   ],
   "fluentMethods": true,
@@ -26,6 +20,16 @@
   "name": "Learning",
   "pagination": "no",
   "readOnly": false,
-  "relationships": [],
+  "relationships": [
+    {
+      "id": false,
+      "otherEntityField": "id",
+      "otherEntityName": "lesson",
+      "otherEntityRelationshipName": "learning",
+      "ownerSide": true,
+      "relationshipName": "lesson",
+      "relationshipType": "one-to-one"
+    }
+  ],
   "service": "serviceImpl"
 }

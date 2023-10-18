@@ -69,7 +69,7 @@
             <option [ngValue]="null"></option>
             <option [ngValue]="learningOption" *ngFor="let learningOption of learningsSharedCollection">
               {{
-                learningOption.language +
+                learningOption.lesson +
                   ' Begining ' +
                   (learningOption.startDate | formatMediumDate) +
                   ' Ending ' +

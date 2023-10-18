@@ -1,10 +1,10 @@
 package com.lokolingo.domain;
 
-import com.lokolingo.domain.enumeration.Language;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.time.Instant;
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -32,10 +32,10 @@ public class Learning implements Serializable {
     @Column(name = "end_date")
     private Instant endDate;
 
-    @NotNull
-    @Enumerated(EnumType.STRING)
-    @Column(name = "language", nullable = false)
-    private Language language;
+    @JsonIgnoreProperties(value = { "multipleChoices" }, allowSetters = true)
+    @OneToOne
+    @JoinColumn(unique = true)
+    private Lesson lesson;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
 
@@ -78,17 +78,17 @@ public class Learning implements Serializable {
         this.endDate = endDate;
     }
 
-    public Language getLanguage() {
-        return this.language;
+    public Lesson getLesson() {
+        return this.lesson;
     }
 
-    public Learning language(Language language) {
-        this.setLanguage(language);
+    public void setLesson(Lesson lesson) {
+        this.lesson = lesson;
+    }
+
+    public Learning lesson(Lesson lesson) {
+        this.setLesson(lesson);
         return this;
-    }
-
-    public void setLanguage(Language language) {
-        this.language = language;
     }
 
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
@@ -117,7 +117,6 @@ public class Learning implements Serializable {
             "id=" + getId() +
             ", startDate='" + getStartDate() + "'" +
             ", endDate='" + getEndDate() + "'" +
-            ", language='" + getLanguage() + "'" +
             "}";
     }
 }

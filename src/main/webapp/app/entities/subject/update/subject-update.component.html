@@ -15,7 +15,7 @@
           <label class="form-label" for="field_age">Age</label>
           <select class="form-control" name="age" formControlName="age" id="field_age" data-cy="age">
             <option [ngValue]="null"></option>
-            <option *ngFor="let ageGrouping of ageGroupingValues" [value]="ageGrouping">ageGrouping</option>
+            <option *ngFor="let ageGrouping of ageGroupingValues" [value]="ageGrouping">{{ ageGrouping }}</option>
           </select>
         </div>
 
@@ -23,7 +23,7 @@
           <label class="form-label" for="field_language">Language</label>
           <select class="form-control" name="language" formControlName="language" id="field_language" data-cy="language">
             <option [ngValue]="null"></option>
-            <option *ngFor="let language of languageValues" [value]="language">language</option>
+            <option *ngFor="let language of languageValues" [value]="language">{{ language }}</option>
           </select>
           <div *ngIf="editForm.get('language')!.invalid && (editForm.get('language')!.dirty || editForm.get('language')!.touched)">
             <small class="form-text text-danger" *ngIf="editForm.get('language')?.errors?.required"> This field is required. </small>
